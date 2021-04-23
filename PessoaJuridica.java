@@ -1,6 +1,6 @@
-public class PessoaJuridica extends Cliente(){
+public class PessoaJuridica extends Cliente{
 
-    private final String cnpj;
+    private String cnpj;
 
     public PessoaJuridica(String nome, String cnpj){
        super(nome);

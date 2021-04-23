@@ -13,7 +13,7 @@ public class Reserva implements Pagamento{
         this.pagamentoAVista = pagamentoAVista;
     }
 
-    public Cliente cliente(){
+    public Cliente getCliente(){
         return cliente;
     }
     public void setCliente(Cliente cliente){

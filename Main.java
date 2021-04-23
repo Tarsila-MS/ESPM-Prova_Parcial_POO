@@ -13,7 +13,7 @@ public class Main {
         do {
             printMenu();
 
-            /*
+            /* -- Tentativa de exceção --
             do{ 
              * continueloop = true; 
              * try{
@@ -24,7 +24,7 @@ public class Main {
              *      }else{ 
              *      continueloop = true; 
              *      } 
-             * }catch(inputMismatchException){
+             * }catch(InputMismatchException){
              *      System.out.println("Não pode ser outra coisa, sem ser número de 1 a 6") 
              *  }
              *}while(continueloop);
@@ -186,22 +186,12 @@ public class Main {
 
     public static void ImprimirReserva(List<Reserva> cliente) {
 
-        // lista de Reservas pessoa Física
-
-        for (int i = 0; i < 6; i++) {
-
-            if (cliente.get(i).getCliente() instanceof PessoaFisica) {
-                PessoaFisica pf = (PessoaFisica) cliente;
-                System.out.println("Reserva da Pessoa Física --> " + cliente.get(i) + "->" + pf.getCpf());
-
-                // lista de Reservas pessoa Jurídica
-
-            } else if (cliente.get(i).getCliente() instanceof PessoaJuridica) {
-                PessoaJuridica pj = (PessoaJuridica) cliente;
-                System.out.println("Reserva da Pessoa Jurídica --> " + cliente.get(i) + "->" + pj.getCnpj());
-
+        
+        for (int i = 0; i < cliente.size(); i++) {
+              System.out.println(cliente.get(i));
+            if(i == 5){
+                break;
             }
-
         }
 
     }
@@ -211,13 +201,13 @@ public class Main {
 
             if (cliente.get(i).getCliente() instanceof PessoaFisica) {
                 PessoaFisica pf = (PessoaFisica) cliente.get(i).getCliente();
-                System.out.println("Resarva da Pessoa Física --> " + cliente.get(i) + "->" + pf.getCpf());
+                System.out.println(cliente.get(i));
 
                 // lista de Reservas pessoa Jurídica
 
             } else if (cliente.get(i).getCliente() instanceof PessoaJuridica) {
                 PessoaJuridica pj = (PessoaJuridica) cliente.get(i).getCliente();
-                System.out.println("Reserva da Pessoa Jurídica --> " + cliente.get(i) + "->" + pj.getCnpj());
+                System.out.println(cliente.get(i));
 
             }
 
@@ -270,5 +260,5 @@ public class Main {
  * Anotações para Estudo: cliente.forEach(cliente ->
  * System.out.println(cliente)); --> para cada cliente pegue-o e o imprima.
  * inicia a variável de pessoa física e dentro dos ()-> pessoa fisica do
- * cliente. (linha 201)
+ * cliente. (linha 200)
  */
