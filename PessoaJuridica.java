@@ -16,8 +16,10 @@ public class PessoaJuridica extends Cliente(){
 
     @Override
     public String toString() {
-        return "Pessoa Juridica{" +
-                "cnpj: " + cnpj + '\'' +   
+        return "Pessoa Juridica{" + getNome() + "cnpj: " + cnpj + '\'' +   
                 '}';
+    }
+    public Object getCnpj() {
+        return null;
     }
 }

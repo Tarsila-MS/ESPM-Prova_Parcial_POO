@@ -1,5 +1,5 @@
-public class abstract Cliente(){
-    private final String nome;
+public abstract class  Cliente{
+    private  String nome;
     
     public Cliente(String nome){
         

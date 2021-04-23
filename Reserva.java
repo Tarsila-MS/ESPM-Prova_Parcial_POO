@@ -1,4 +1,4 @@
-public class Reserva(){
+public class Reserva implements Pagamento{
 
     private Cliente cliente;
     private boolean pagamentoAVista;
@@ -24,7 +24,7 @@ public class Reserva(){
     @Override
     public String toString() {
         return "Reserva{" +
-                "Cliente: " + cliente + '\''
+                "Cliente: " + cliente + '\''+
                 "Pagamento a Vista:" + pagamentoAVista + '\'' +   
                 '}';
     }
