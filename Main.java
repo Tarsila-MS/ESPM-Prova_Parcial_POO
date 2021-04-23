@@ -9,7 +9,21 @@ public class Main{
         do{
             printMenu();
             int selecionar = teclado.nextInt();
-            // TENHO QUE FAZER A VALIDAÇÃO  
+            do{ 
+                continueloop = true;
+                try{
+                System.out.println("Digite um número de 1 a 6")
+                int selecionar = input.nextInt();
+                if(selecionar >= 1 && selecionar <7){
+                    continueloop = false;
+                }else{
+                    continueloop = true;
+                }
+             }catch(inputMissmatchException){
+                System.out.println("Não pode ser outra coisa, sem ser número de 1 a 6")
+                }
+        }while(continueloop);
+
             if(selecionar > 0 && selecionar < 7){
                 switch(opcao){
                                        
