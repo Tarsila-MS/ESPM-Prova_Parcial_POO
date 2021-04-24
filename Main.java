@@ -4,29 +4,30 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Main {
+    public static int mesaVaga = 0;
     public static void main(String[] args) {
-
+        System.out.println("me da 10 humberto <3");
         Scanner teclado = new Scanner(System.in);
         List<Reserva> cliente = new ArrayList();
-
         int selecionar;
         do {
             printMenu();
-
+           
             while(true){ 
-                try{
-                System.out.println("Digite um número de 1 a 6"); 
-                selecionar = teclado.nextInt(); 
-                     if(selecionar > 0 && selecionar <7){
-                         break;
-                     }else{ 
-                       System.out.println("Não pode ser outra coisa, sem ser número de 1 a 6");
-                     } 
-                }catch(InputMismatchException e){
-                     teclado.next();
-                     System.out.println("Não pode ser outra coisa, sem ser número de 1 a 6: " + e); 
-                }
+              try{
+              System.out.print("Digite um número de 1 a 6: "); 
+              selecionar = teclado.nextInt(); 
+                   if(selecionar > 0 && selecionar <7){
+                       break;
+                   }else{ 
+                     System.out.println("Não pode ser outra coisa, sem ser número de 1 a 6");
+                   } 
+              }catch(InputMismatchException e){
+                   teclado.next();
+                   System.out.println("Não pode ser outra coisa, sem ser número de 1 a 6: " + e); 
               }
+            }
+             
               
              
             if (selecionar > 0 && selecionar < 7) {
@@ -34,6 +35,7 @@ public class Main {
 
                 case 1:
                     cliente.add(ReservarMesa(cliente));
+                   
                     break;
 
                 case 2:
@@ -66,19 +68,23 @@ public class Main {
     // métodos
 
     public static void printMenu() {
-        System.out.println("Restaurante SABOR SOFISTICADO:");
-        System.out.println("1. Reservar Mesa");
-        System.out.println("2. Pesquisar Reserva");
-        System.out.println("3. Imprimir Reserva");
-        System.out.println("4. Imprimir lista de espera");
-        System.out.println("5. Cancelar Reserva");
-        System.out.println("6. Finalizar");
+        System.out.println("╔═════════════════════════════════╗");
+        System.out.println("║ Restaurante SABOR SOFISTICADO:  ║");
+        System.out.println("║ 1 → Reservar Mesa               ║");
+        System.out.println("║ 2 → Pesquisar Reserva           ║");
+        System.out.println("║ 3 → Imprimir Reserva            ║");
+        System.out.println("║ 4 → Imprimir lista de espera    ║");
+        System.out.println("║ 5 → Cancelar Reserva            ║");
+        System.out.println("║ 6 → Finalizar                   ║");
+        System.out.println("╟─────────────────────────────────╢");
+        System.out.println("║ Mesas ocupadas: " + mesaVaga + "               ║");
+        System.out.println("╚═════════════════════════════════╝");
     }
 
     public static PessoaFisica cadastroPf() {
-        System.out.println("cpf: ");
+        System.out.print("Insira o cpf: ");
         String cpf = new Scanner(System.in).nextLine();
-        System.out.println("nome: ");
+        System.out.print("Insira o nome: ");
         String nome = new Scanner(System.in).nextLine();
         PessoaFisica pf = new PessoaFisica("", "");
         pf.setCpf(cpf);
@@ -87,9 +93,9 @@ public class Main {
     }
 
     public static PessoaJuridica cadastroPJ() {
-        System.out.println("cnpj: ");
+        System.out.print("Insira o cnpj: ");
         String cnpj = new Scanner(System.in).nextLine();
-        System.out.println("nome: ");
+        System.out.print("Insira o nome: ");
         String nome = new Scanner(System.in).nextLine();
         PessoaJuridica pj = new PessoaJuridica("", "");
         pj.setCnpj(cnpj);
@@ -98,40 +104,39 @@ public class Main {
     }
 
     public static Reserva ReservarMesa(List<Reserva> cliente) {
-        int mesaVaga = 0;
 
         Scanner teclado = new Scanner(System.in);
-        System.out.println("Deseja informar o cpf, ou cnpj: ");
+        System.out.print("Deseja informar o CPF, ou CNPJ? ");
         String informe = teclado.nextLine();
         Cliente cl = null;
         // Vaga para reservar
-
+       
         if (informe.equalsIgnoreCase("cpf") && mesaVaga <= 6) {
             cl = cadastroPf();
-            mesaVaga++;
-        } else if (informe.equalsIgnoreCase("cnpj") && mesaVaga <= 6) {
-            cl = cadastroPJ();
-            mesaVaga++;
-
+            mesaVaga += 1;
+        } else if (informe.equalsIgnoreCase("cnpj") && mesaVaga <= 6){ 
+          cl = cadastroPJ();
+            mesaVaga += 1;
+      
             // Sem vagas, vai para lista de espera
 
-        } else if (informe.toLowerCase() == "cpf" && mesaVaga >= 7) {
-            System.out.println("Adcionando na lista de espera");
+        } else if (informe.equalsIgnoreCase("cpf") && mesaVaga >= 7) {
+            System.out.print(" - Adicionando na lista de espera\n");
             cl = cadastroPf();
             mesaVaga++;
-        } else if (informe.toLowerCase() == "cnpj" && mesaVaga >= 7) {
-            System.out.println("Adcionando na lista de espera");
+        } else if (informe.equalsIgnoreCase("cnpj") && mesaVaga >= 7){
+         System.out.println("- Adicionando na lista de espera\n");
             cl = cadastroPJ();
             mesaVaga++;
-
+        
             // Informação inválida para realizar a reserva
 
         } else {
             System.out.println("Informação inserida incorreta! Tente novamente.");
         }
-
+        
         // Informar Forma de Pagamento
-
+             
         System.out.println("A forma de pagamento será a vista? \n Digite 1, para sim \n Digite 2, para não");
         int digito = teclado.nextInt();
         Reserva cli = new Reserva(null, false);
@@ -142,26 +147,26 @@ public class Main {
         } else {
             cli.setPagamentoAVista(false);
         }
-
+        System.out.println("\n\n");
         return cli;
     }
 
     public static void Pesquisar(List<Reserva> cliente) {
         Scanner teclado = new Scanner(System.in);
+        boolean confere = false;
 
+        System.out.print("Informe o seu cpf, ou seu cnpj: ");
+        
+        String tipo = teclado.nextLine();
         for (int i = 0; i < cliente.size(); i++) {
-
             // pesquisar por cpf
 
-            System.out.println("Informe o seu cpf, ou seu cnpj: ");
-            boolean confere = false;
-            String cpf = teclado.nextLine();
             if (cliente.get(i).getCliente() instanceof PessoaFisica) {
                 PessoaFisica pf = (PessoaFisica) cliente.get(i).getCliente();
-                if (pf.getCpf().equals(cpf)) {
+                if (pf.getCpf().equals(tipo)) {
                     confere = true;
                     System.out.println("Reserva da Pessoa Física --> " + cliente.get(i) + "->" + pf.getCpf());
-
+                    break;
                 }
 
             }
@@ -169,17 +174,17 @@ public class Main {
 
             if (cliente.get(i).getCliente() instanceof PessoaJuridica) {
                 PessoaJuridica pj = (PessoaJuridica) cliente.get(i).getCliente();
-                if (pj.getCnpj().equals(cpf)) {
+                if (pj.getCnpj().equals(tipo)) {
                     confere = true;
                     System.out.println("Reserva da Pessoa Jurídica --> " + cliente.get(i) + "->" + pj.getCnpj());
+                    break;
                 }
             }
-            if (confere == false) {
-                System.out.println("A reserva não foi registrada");
-            }
-
         }
 
+        if (confere == false) {
+            System.out.println("A reserva não foi registrada");
+        }
     }
 
     public static void ImprimirReserva(List<Reserva> cliente) {
@@ -197,6 +202,8 @@ public class Main {
     public static void ImprimirLista(List<Reserva> cliente) {
         for (int i = 6; i < cliente.size(); i++) {
 
+                // lista de Reservas pessoa Física
+                
             if (cliente.get(i).getCliente() instanceof PessoaFisica) {
                 PessoaFisica pf = (PessoaFisica) cliente.get(i).getCliente();
                 System.out.println(cliente.get(i));
@@ -216,26 +223,34 @@ public class Main {
     public static void Cancelar(List<Reserva> cliente) {
         Scanner teclado = new Scanner(System.in);
         System.out.println("Informe o seu cpf, ou seu cnpj: ");
+        
         String tipo = teclado.nextLine();
 
         for (int i = 0; i < cliente.size(); i++) {
 
+            // cpf
+
             if (cliente.get(i).getCliente() instanceof PessoaFisica) {
                 PessoaFisica pf = (PessoaFisica) cliente.get(i).getCliente();
                 if (pf.getCpf().equals(tipo)) {
+                    
                     System.out.println(
-                            "Reserva da Pessoa Física a ser removida --> " + cliente.get(i) + "->" + pf.getCpf());
+                            "Reserva da Pessoa Física a ser CANCELADA --> " + cliente.get(i) + "->" + pf.getCpf());
                     cliente.remove(i);
                 }
 
             }
-            // pesquisar por cnpj
+            // cnpj
 
             else if (cliente.get(i).getCliente() instanceof PessoaJuridica) {
                 PessoaJuridica pj = (PessoaJuridica) cliente.get(i).getCliente();
-                if (pj.getCnpj().equals(tipo)) {
-                   System.out.println("Reserva da Pessoa Jurídica a ser removida --> " + cliente.get(i) + "->" + pj.getCnpj());
+                
+                 if (pj.getCnpj().equals(tipo)){
+                   
+                    System.out.println(
+                            "Reserva da Pessoa Jurídica a ser CANCELADA --> " + cliente.get(i) + "->" + pj.getCnpj());
                     cliente.remove(i);
+                    
                 }
             }
             else{
