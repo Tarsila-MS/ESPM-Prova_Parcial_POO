@@ -20,6 +20,7 @@ public class PessoaJuridica extends Cliente{
                 '}';
     }
     public Object getCnpj() {
-        return null;
+        return cnpj; 
+    
     }
 }

@@ -13,29 +13,27 @@ public class Main {
         do {
             printMenu();
 
-            /* -- Tentativa de exceção --
-            do{ 
-             * continueloop = true; 
-             * try{
-             * System.out.println("Digite um número de 1 a 6"); 
-             * int selecionar = input.nextInt(); 
-             *      if(selecionar >= 1 && selecionar <7){ 
-             *          continueloop = false;
-             *      }else{ 
-             *      continueloop = true; 
-             *      } 
-             * }catch(InputMismatchException){
-             *      System.out.println("Não pode ser outra coisa, sem ser número de 1 a 6") 
-             *  }
-             *}while(continueloop);
-             * 
-             */ selecionar = teclado.nextInt();
+            while(true){ 
+                try{
+                System.out.println("Digite um número de 1 a 6"); 
+                selecionar = teclado.nextInt(); 
+                     if(selecionar > 0 && selecionar <7){
+                         break;
+                     }else{ 
+                       System.out.println("Não pode ser outra coisa, sem ser número de 1 a 6");
+                     } 
+                }catch(InputMismatchException e){
+                     teclado.next();
+                     System.out.println("Não pode ser outra coisa, sem ser número de 1 a 6: " + e); 
+                }
+              }
+              
+             
             if (selecionar > 0 && selecionar < 7) {
                 switch (selecionar) {
 
                 case 1:
                     cliente.add(ReservarMesa(cliente));
-                    System.out.println(cliente.get(0));
                     break;
 
                 case 2:
@@ -218,15 +216,13 @@ public class Main {
     public static void Cancelar(List<Reserva> cliente) {
         Scanner teclado = new Scanner(System.in);
         System.out.println("Informe o seu cpf, ou seu cnpj: ");
-        boolean confere = false;
-        String cpf = teclado.nextLine();
+        String tipo = teclado.nextLine();
 
         for (int i = 0; i < cliente.size(); i++) {
 
             if (cliente.get(i).getCliente() instanceof PessoaFisica) {
                 PessoaFisica pf = (PessoaFisica) cliente.get(i).getCliente();
-                if (pf.getCpf().equals(cpf)) {
-                    confere = true;
+                if (pf.getCpf().equals(tipo)) {
                     System.out.println(
                             "Reserva da Pessoa Física a ser removida --> " + cliente.get(i) + "->" + pf.getCpf());
                     cliente.remove(i);
@@ -235,16 +231,14 @@ public class Main {
             }
             // pesquisar por cnpj
 
-            if (cliente.get(i).getCliente() instanceof PessoaJuridica) {
+            else if (cliente.get(i).getCliente() instanceof PessoaJuridica) {
                 PessoaJuridica pj = (PessoaJuridica) cliente.get(i).getCliente();
-                if (pj.getCnpj().equals(cpf)) {
-                    confere = true;
-                    System.out.println(
-                            "Reserva da Pessoa Jurídica a ser removida --> " + cliente.get(i) + "->" + pj.getCnpj());
+                if (pj.getCnpj().equals(tipo)) {
+                   System.out.println("Reserva da Pessoa Jurídica a ser removida --> " + cliente.get(i) + "->" + pj.getCnpj());
                     cliente.remove(i);
                 }
             }
-            if (confere == false) {
+            else{
                 System.out.println("Esse cliente é inexistente");
             }
 
