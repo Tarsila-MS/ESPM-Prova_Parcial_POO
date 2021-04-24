@@ -6,7 +6,6 @@ import java.util.Scanner;
 public class Main {
     public static int mesaVaga = 0;
     public static void main(String[] args) {
-        System.out.println("me da 10 humberto <3");
         Scanner teclado = new Scanner(System.in);
         List<Reserva> cliente = new ArrayList();
         int selecionar;
